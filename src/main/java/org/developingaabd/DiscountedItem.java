@@ -16,8 +16,6 @@ public class DiscountedItem extends Item {
         if(quantity >= bulkQuantity){
           hasLeft =  quantity / bulkQuantity;
           remainder = quantity % bulkQuantity;
-            System.out.println("hasLeft: " + hasLeft);
-            System.out.println("remainder: " + remainder);
           return (hasLeft * bulkPrice)+ super.priceFor(remainder);
         }else{
            return super.priceFor(quantity);

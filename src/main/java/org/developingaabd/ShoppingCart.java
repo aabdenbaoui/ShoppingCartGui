@@ -3,11 +3,13 @@ package org.developingaabd;
 import java.util.*;
 
 public class ShoppingCart {
+//    private double total;
     Set<Purchase> purchases = new HashSet<>();
+    private double total;
+
     public ShoppingCart(){
 
     }
-
     public static String getDiscountPercentage() {
         return "10";
     }
@@ -21,7 +23,6 @@ public class ShoppingCart {
              purchases.add(purchase);
          }else{
              List<Purchase> tempPurchases = new ArrayList<>();
-             //copy purchases to tempPurchases
              for(Purchase purchase1 : purchases){
                  tempPurchases.add(purchase1);
              }
@@ -40,25 +41,39 @@ public class ShoppingCart {
                      return;
                  }
              }
-
          }
-
     }
     public void clearAll(){
         purchases.clear();
     }
     public double getTotal(){
-        double total = 0;
+       return calculateTotal();
+    }
+    private double calculateTotal(){
+        total = 0;
         for(Purchase purchase : purchases){
             total += purchase.getPrice();
         }
         return total;
     }
-
     public boolean hasDiscount() {
-        return false;
+        int totalItems = 0;
+        for(Purchase purchase : purchases){
+            totalItems += purchase.getQuantity();
+        }
+        if(totalItems >= 20){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public void setDiscount(boolean selected) {
+    public void setDiscount(boolean selected){
+        System.out.println("before: " + total);
+        System.out.println(hasDiscount());
+        if(selected && hasDiscount()){
+              total -=  total * 0.1;
+        }
+        System.out.println("after" + total);
     }
 }

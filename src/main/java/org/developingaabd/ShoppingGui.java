@@ -109,7 +109,7 @@ public class ShoppingGui {
 	private void updateTotal() {
 		total.setText(String.format("$%.2f  ORDER TOTAL", cart.getTotal()));
 //		System.out.println(cart.purchases);
-		System.out.println(cart.purchases);
+//		System.out.println(cart.purchases);
 	}
 
 	
