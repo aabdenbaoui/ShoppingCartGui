@@ -32,35 +32,35 @@ public class ShoppingCart {
                      purchases.remove(tempP);
                      purchases.add(purchase);
                      //it exists here debug
-                     return;
+//                     return;
                  }
              }
              for(Purchase tempP: tempPurchases){
                  if(!tempP.matches(purchase)){
                      purchases.add(purchase);
-                     return;
+//                     return;
                  }
              }
          }
+        calculateTotal();
+        System.out.println(total);
     }
     public void clearAll(){
         purchases.clear();
     }
     public double getTotal(){
-       return calculateTotal();
+//       return calculateTotal();
+
+        return total;
     }
-    private double calculateTotal(){
+    private void calculateTotal(){
         total = 0;
         for(Purchase purchase : purchases){
             total += purchase.getPrice();
         }
-        return total;
     }
     public boolean hasDiscount() {
-        int totalItems = 0;
-        for(Purchase purchase : purchases){
-            totalItems += purchase.getQuantity();
-        }
+        int totalItems = totalQuantity();
         if(totalItems >= 20){
             return true;
         }else{
@@ -69,11 +69,22 @@ public class ShoppingCart {
     }
 
     public void setDiscount(boolean selected){
+        double tempTotal =  total;
         System.out.println("before: " + total);
-        System.out.println(hasDiscount());
-        if(selected && hasDiscount()){
-              total -=  total * 0.1;
+        if(selected && hasDiscount()) {
+            total -= total * 0.1;
+        }else if(!selected && hasDiscount()){
+            total = tempTotal;
+        }else if(selected && !hasDiscount()){
+            total = tempTotal;
         }
         System.out.println("after" + total);
+    }
+    public int totalQuantity(){
+        int totalItems = 0;
+        for(Purchase purchase : purchases){
+            totalItems += purchase.getQuantity();
+        }
+        return totalItems;
     }
 }
